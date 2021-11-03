@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #dedede;
+}
+
+.father {
+    width: 670px;
+    height: 312px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.son {
+    display: flex;
+    height: 212px;
+    width: 538px;
+    margin: 25px 0 0 15px;
+    background-color: #ffffff;
+    /* justify-content: space-around; */
+    justify-content: space-between;
+    /*主轴*/
+    flex-wrap: wrap;
+    /* 换行 */
+    align-content: space-between;
+    /*侧轴*/
+}
+
+.son span {
+    width: 96px;
+    height: 100px;
+    background-color: palegreen;
+    border: 1px solid #e0e0e0;
+}
+
+.son span img {
+    width: 100%;
+    height: 100%;
+}
+
+.passage {
+    width: 670px;
+    height: 330px;
+    margin: 10px auto;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
+    padding-left: 15px;
+}
+
+.passage h2 {
+    height: 64px;
+    line-height: 64px;
+}
+
+.passage h6 {
+    height: 42px;
+    font-size: 12px;
+    line-height: 42px;
+}
+
+.passage ol {
+    width: 100px;
+    font-weight: 700;
+    margin-left: 50px;
+}
+
+.passage ol li {
+    font-size: 12px;
+}
+
+table {
+    width: 634px;
+    height: 114px;
+    font-size: 12px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+table tbody tr:first-child {
+    color: #ffffff;
+}
+
+table tbody tr:last-child {
+    font-weight: 700;
+}
+
+td {
+    height: 20px;
+}

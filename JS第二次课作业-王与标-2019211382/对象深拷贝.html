@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //浅拷贝只是拷贝引用，当我们修改拷贝的值时候会影响原来的值
+        //为了不影响原来的值，我们就要进行深拷贝，开辟一个新的内存，对值进行赋值
+        var data = {
+            age: 18,
+            name: "这是真的难",
+            education: ["小学", "初中", "高中", "大学", undefined, null],
+            friends: [{
+                name: "Amber",
+                sex: "woman"
+            }, {
+                name: "Barbara",
+                sex: "woman"
+            }, {
+                name: "Venti",
+                sex: "man"
+            }],
+            work: {
+                time: "2021",
+                project: {
+                    name: "test",
+                    obtain: ["css", "html", "js"]
+                }
+            },
+            play: function() {
+                console.log("玩滑板");
+            }
+        }
+
+        function isObject(obj) {
+            return typeof obj === "object" && obj !== null;
+
+        }
+
+        function deepClone(obj) {
+            let newobj = Array.isArray(obj) ? [] : {}; //判断是否为数值
+            if (isObject) { //判断类型
+                for (i in obj) { //for … in会获取到原型链上的可枚举属性，使用hasOwnProperty方法可以过滤掉
+                    if (obj.hasOwnProperty(i)) {
+                        newobj[i] = isObject(obj[i]) ? deepClone(obj[i]) : obj[i]; //判断该子元素是否为对象如果是就递归复制，不是就直接复制
+                    }
+
+                }
+
+            }
+            return newobj;
+
+        }
+
+        // 方法二
+
+        // function deepClone(obj) {
+        //     let _obj = JSON.stringify(obj),
+        //         objClone = JSON.parse(_obj);
+        //     return objClone
+        // }
+
+        //这种方法无法拷贝funtion
+
+
+
+        var newdate = deepClone(data);
+        newdate.age = 19;
+        console.log(newdate);
+        console.log(data);
+
+        console.log(typeof deepClone);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

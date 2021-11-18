@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function course() {
+            this.coursename = "CSA前端培训";
+            this.semester = 2;
+        }
+
+        function student(name, age, gender) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            this.moreinfo = function() {
+                var that = this; //指定this的指向
+                var detail = function() {
+
+                    console.log(that.gender);
+                }
+                detail(); //这里会使得this.gender中的this指向windows,因为detail是var声明的，这里直接将detail删掉也可以实现，也相当于改变了this的指向
+
+            }
+
+
+            course.call(this); //call()方法调用父构造函数
+        }
+
+
+        //student.prototype = new course();//原型链
+        /*student.prototype.moreinfo = function() {
+            console.log(this.gender);
+        }*/ //原型链
+        var student1 = new student("小明", 18, "男");
+        console.log(student1.coursename, student1.semester); //课程名字和第几期
+        student1.moreinfo(); //你的性别
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

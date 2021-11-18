@@ -8,7 +8,7 @@
     <title>Document</title>
     <script>
         //浅拷贝只是拷贝引用，当我们修改拷贝的值时候会影响原来的值
-        //为了不影响原来的值，我们就要进行深拷贝，开辟一个新的内存，对值进行赋值
+        //为了不影响原来的值，我们就要进行深拷贝，开辟一个新的内存，对值进行复制
         var data = {
             age: 18,
             name: "这是真的难",
@@ -41,7 +41,7 @@
         }
 
         function deepClone(obj) {
-            let newobj = Array.isArray(obj) ? [] : {}; //判断是否为数值
+            let newobj = Array.isArray(obj) ? [] : {}; //判断是否为数组
             if (isObject) { //判断类型
                 for (i in obj) { //for … in会获取到原型链上的可枚举属性，使用hasOwnProperty方法可以过滤掉
                     if (obj.hasOwnProperty(i)) {

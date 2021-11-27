@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .outer {
+            display: flex;
+            height: 300px;
+            width: 300px;
+            background-color: orange;
+            margin: auto;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #color {
+            float: left;
+        }
+        
+        #word {
+            float: right;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var outer = document.querySelector('.outer'); //这个是单引号
+            console.log(outer);
+            var color = document.getElementById("color"); //ById是双引号
+            var word = document.querySelector('#word');
+            var colorArr = ["red", "pink", "blue", "aqua"];
+            var size = ["10px", "20px", "30px", "40px"];
+            var i = 0;
+            color.onclick = function() {
+                if (i > colorArr.length - 1) {
+                    i = 0;
+
+                }
+                outer.style.backgroundColor = colorArr[i];
+                i++;
+            }
+
+            word.onclick = function() {
+                if (i > size.length - 1) {
+                    i = 0;
+
+                }
+                outer.style.fontSize = size[i];
+                i++;
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="outer">
+
+
+        <button id="color">颜色</button>
+        <p>我是文字</p>
+        <button id="word">字体大小</button>
+
+    </div>
+</body>
+
+</html>

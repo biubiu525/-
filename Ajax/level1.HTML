@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .table tr td {
+            color: #d2d1d1;
+            padding-left: 30px;
+        }
+        
+        .table tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+        
+        .table tr td:first-child {
+            color: #99b3cc;
+        }
+        
+        input {
+            width: 200px;
+            height: 30px;
+            border: solid 1px blue;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text">
+    <button>搜索</button>
+    <div id="result"></div>
+    <div class="table">
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </div>
+
+    <script>
+        const btn = document.querySelector("button");
+        const result = document.getElementById("result");
+        const input = document.querySelector("input");
+        const table = document.querySelector(".table");
+        btn.onclick = function() {
+            table.innerHTML = '';
+            var i = input.value;
+            // 创建对象
+            const xhr = new XMLHttpRequest();
+            //初始化  设置请求方法和 url
+            //设置请求参数就直接在URL后边添加即可
+            var url = "http://cloud-music.pl-fe.cn/search?keywords= " + i;
+
+            xhr.open('GET', url);
+            //发送
+            xhr.send();
+            //事件绑定，处理服务端返回的结果
+            //on 当什么的时候
+            //readystate 是xhr对象当中的属性，表示状态 0 1 2 3 4
+            // 0 表示初始化 1表示open方法已经调用完毕 2表示send已调用完毕 3表示服务端返回了部分的结果 4表示服务端返回了所有的结果
+            //change 改变的时候触发 
+            xhr.onreadystatechange = function() {
+                //
+                if (xhr.readyState === 4) {
+                    //判断响应状态码 200 404 403 401 500
+                    //2xx表示成功  
+                    if (xhr.status >= 200 && xhr.status <= 300) {
+                        // 处理结果 行 头 空行 体
+                        //响应行
+                        // console.log(xhr.status); //状态码
+                        // console.log(xhr.statusText); //状态字符串
+                        // console.log(xhr.getAllResponseHeaders()); //所有的响应头
+                        // console.log(xhr.response); //响应体
+                        //设置result文本
+                        //下面是对数据的手动转化
+                        var jsonbj = JSON.parse(xhr.response);
+                        var songs = jsonbj.result.songs;
+                        for (var i = 0; i < songs.length; i++) {
+                            var tr = [];
+                            tr[i] = document.createElement("tr");
+                            tr[i].innerHTML = "<td>" + songs[i].name + "</td>" + "<td>" + songs[i].artists[0].name + "</td>" + "<td>" + songs[i].album.name + "</td>";
+                            table.appendChild(tr[i]);
+                        }
+
+
+                    }
+                }
+
+
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

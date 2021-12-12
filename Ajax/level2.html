@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function ajax(options) {
+            // 设置默认值
+            var defaults = {
+                type: 'get',
+                url: '',
+                data: {},
+                header: {},
+                success: function() {},
+                error: function() {}
+            }
+
+            // 对象覆盖，相当于拷贝的一个函数,用传入的对象替代默认值，因为它修改的时候会影响原来的默认值
+            Object.assign(defaults, options);
+            //创建Ajax对象
+            var xhr = new XMLHttpRequest();
+            //拼接请求参数的对象
+            var params = '';
+            //循环用户传进来的对象格式参数
+            for (var attr in defaults.data) {
+                //将参数转换成字符串格式
+                params += attr + '=' + defaults.data[attr] + '&';
+            }
+
+            //截取掉最后的&
+            params = params.substr(0, params.length - 1);
+
+            if (defaults.type == 'get') {
+                defaults.url = defaults.url + '?' + params;
+            }
+
+            xhr.open(defaults.type, defaults.url);
+            // 发送请求
+            //判断请求的类型
+            if (defaults.type == 'post') {
+                var contentType = defaults.header['Content-Type'];
+                // 设置请求参数的类型
+                xhr.setRequestHeader('Content-Type', contentType);
+                //判断Content-type类型
+                if (contentType == 'application/json') {
+                    xhr.send(JSON.stringify(defaults.data));
+
+                } else {
+                    xhr.send(params);
+                }
+
+            } else {
+                xhr.send();
+            }
+            // 监听xhr对象下面的onload事件
+            //当xhr对象接受完响应数据后触发
+            xhr.onload = function() {
+                //获取响应头当中的属性
+                var CT = xhr.getResponseHeader('Content-Type');
+                console.log(CT);
+                var responseText = xhr.responseText;
+                if (CT.includes('application/json')) {
+                    responseText = JSON.parse(responseText);
+
+
+
+                }
+                // console.log(xhr.responseText);
+                // 判断状态码
+                if (xhr.status == 200) {
+                    defaults.success(responseText, xhr); //成功
+
+                } else {
+                    defaults.error(responseText, xhr); //失败
+
+                }
+
+
+            }
+
+        }
+
+        ajax({
+                type: 'post',
+                url: 'http://cloud-music.pl-fe.cn/search',
+
+                data: {
+                    keywords: '喜欢你'
+
+                },
+
+                // 设置类型
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                //回调函数
+                success: function(data, xhr) {
+
+                    console.log(data);
+
+                },
+
+                error: function(data, xhr) {
+                    console.log('错误');
+
+
+                }
+
+
+
+
+            })
+            //这里是为Ajax方法传递一个实参对象
+    </script>
+</body>
+
+</html>

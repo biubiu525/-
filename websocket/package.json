@@ -1,0 +1,16 @@
+{
+    "name": "capitalize",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "Administrator",
+    "contributors": [],
+    "dependencies": {
+        "ws": "~8.1.0"
+    }
+}

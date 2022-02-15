@@ -10,6 +10,10 @@ window.onload = function() {
     const active = document.querySelector(".active")
     const aa = active.querySelector("a")
     const active_citys = document.querySelector(".active_citys")
+    const sl = search.querySelectorAll("a")
+    const data = new Date();
+    const d = data.getFullYear() + '0' + (data.getMonth() + 1) + '' + data.getDate()
+    console.log(d)
 
 
 
@@ -61,9 +65,11 @@ window.onload = function() {
                         }
                         aa.innerText = inh
                         console.log(cityid)
+                        search.style.display = "none";
                         Dayinfo(cityid)
                         Futureinfo(cityid)
                         Aircondition(cityid)
+                        sun(cityid, d)
 
                     }
 
@@ -90,8 +96,102 @@ window.onload = function() {
 
     }
 
+    console.log(sl[0].innerHTML)
+    for (var i = 0; i < sl.length; i++) {
+        sl[i].onclick = function() {
+            var location = this.innerText
+            city.innerHTML = this.innerText
 
+            var key = "69505f28c0e1414cbb24927a8e055499";
+            $.ajax({
+                url: "https://geoapi.qweather.com/v2/city/lookup",
+                data: {
+                    key: key,
+                    location: location
+                },
+                success: function(data) {
+                    console.log(data)
+                    var cityid = data.location[0].id
+
+                    console.log(cityid)
+                    search.style.display = "none";
+                    Dayinfo(cityid)
+                    Futureinfo(cityid)
+                    Aircondition(cityid)
+                    sun(cityid, d)
+
+
+                    // const lis = city_list.querySelectorAll("li")
+                    // for (var i = 0; i < lis.length; i++) {
+                    //     lis[i].onclick = function() {
+                    //         const inh = this.innerText
+                    //         console.log(inh)
+                    //         city.innerHTML = inh
+                    //         search.style.display = "none";
+
+
+
+                    //     }
+                    // }
+                },
+                dataType: "json", //json xml text
+                jsonp: "callback",
+                jsonpCallback: "haha"
+            });
+
+
+        }
+    }
 }
+
+// for (var i = 0; i <= sl.length; i++) {
+//     sl[i].onclick = function() {
+//         var location = sl[i].innerText
+//         var key = "69505f28c0e1414cbb24927a8e055499";
+//         $.ajax({
+//             url: "https://geoapi.qweather.com/v2/city/lookup",
+//             data: {
+//                 key: key,
+//                 location: location
+//             },
+//             success: function(data) {
+//                 console.log(data)
+//                 var cityid = data.location[0].id
+
+//                 console.log(cityid)
+//                 Dayinfo(cityid)
+//                 Futureinfo(cityid)
+//                 Aircondition(cityid)
+//                 sun(cityid, d)
+
+
+//                 // const lis = city_list.querySelectorAll("li")
+//                 // for (var i = 0; i < lis.length; i++) {
+//                 //     lis[i].onclick = function() {
+//                 //         const inh = this.innerText
+//                 //         console.log(inh)
+//                 //         city.innerHTML = inh
+//                 //         search.style.display = "none";
+
+
+
+//                 //     }
+//                 // }
+//             },
+//             dataType: "json", //json xml text
+//             jsonp: "callback",
+//             jsonpCallback: "haha"
+//         });
+
+
+//     }
+// }
+
+
+
+
+
+
 
 function Dayinfo(location) { //获得今天的所有实况天气
     var key = "69505f28c0e1414cbb24927a8e055499";
@@ -139,7 +239,63 @@ function Futureinfo(location) {
             const weak_wea = document.querySelector(".weak_wea")
             const wlis = weak_wea.querySelectorAll(".wem")
 
-            console.log(wlis)
+            const single = document.querySelectorAll(".single")
+            console.log(single)
+            const s0b = single[0].querySelector("b")
+            const s1b = single[1].querySelector("b")
+            const s0st = single[0].querySelector("strong")
+            const s1st = single[1].querySelector("strong")
+            const simg0 = single[0].querySelector("img")
+            const simg1 = single[1].querySelector("img")
+            const wea = document.querySelectorAll(".wea")
+            s0b.innerText = data.daily[0].tempMin + " / " + data.daily[0].tempMax
+            s1b.innerText = data.daily[1].tempMin + " / " + data.daily[1].tempMax
+            s0st.innerText = data.daily[0].textDay
+            s1st.innerText = data.daily[1].textDay
+
+
+            if (data.daily[0].textDay == "小雨") {
+                simg0.src = "../moji/images/w7.png";
+            } else if (data.daily[0].textDay == "中雨") {
+                simg0.src = "../moji/images/w8.png";
+            } else if (data.daily[0].textDay == "阵雨") {
+                simg0.src = "../moji/images/w9.png";
+            } else if (data.daily[0].textDay == "大雨") {
+                simg0.src = "../moji/images/w10.png";
+            } else if (data.daily[0].textDay == "雷阵雨") {
+                simg0.src = "../moji/images/w4.png";
+            } else if (data.daily[0].textDay == "晴") {
+                simg0.src = "../moji/images/w0.png";
+            } else if (data.daily[0].textDay == "多云") {
+                simg0.src = "../moji/images/w1.png";
+            } else if (data.daily[0].textDay == "阴") {
+                simg0.src = "../moji/images/w2.png";
+            }
+
+
+
+            if (data.daily[1].textDay == "小雨") {
+                simg1.src = "../moji/images/w7.png";
+            } else if (data.daily[1].textDay == "中雨") {
+                simg1.src = "../moji/images/w8.png";
+            } else if (data.daily[1].textDay == "阵雨") {
+                simg1.src = "../moji/images/w9.png";
+            } else if (data.daily[1].textDay == "大雨") {
+                simg1.src = "../moji/images/w10.png";
+            } else if (data.daily[1].textDay == "雷阵雨") {
+                simg1.src = "../moji/images/w4.png";
+            } else if (data.daily[1].textDay == "晴") {
+                simg1.src = "../moji/images/w0.png";
+            } else if (data.daily[1].textDay == "多云") {
+                simg1.src = "../moji/images/w1.png";
+            } else if (data.daily[1].textDay == "阴") {
+                simg1.src = "../moji/images/w2.png";
+            }
+
+
+            console.log(wea[1].dt)
+
+
 
             console.log(data.daily[2].fxDate)
 
@@ -203,7 +359,7 @@ function Futureinfo(location) {
 
 
         },
-        dataType: "json", 
+        dataType: "json",
         jsonp: "callback",
         jsonpCallback: "haha"
     });
@@ -226,8 +382,39 @@ function Aircondition(location) {
 
 
         },
-        dataType: "json", 
+        dataType: "json",
         jsonp: "callback",
         jsonpCallback: "haha"
     });
+}
+
+function sun(location, d) {
+    var key = "69505f28c0e1414cbb24927a8e055499";
+    $.ajax({
+        url: "https://devapi.qweather.com/v7/astronomy/sun",
+        data: {
+            key: key,
+            location: location,
+            date: d
+
+
+        },
+        success: function(data) {
+            console.log(data)
+            const tabs = document.querySelector(".tabs")
+            const ts = tabs.querySelector("strong")
+            const reg = /([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]/
+            const dt = reg.exec(data.sunset)
+            console.log(dt[0])
+            ts.innerHTML = "日落" + dt[0]
+
+
+
+
+        },
+        dataType: "json",
+        jsonp: "callback",
+        jsonpCallback: "haha"
+    });
+
 }

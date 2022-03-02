@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 过渡谁变化给谁加 */
+        /* div {
+            width: 200px;
+            height: 100px;
+            background-color: pink;
+            /* transition:要过渡的属性 花费的时间 运动曲线 何时开始 属性： */
+        /* transition: width 0.5s ease,
+        height 0.1s; */
+        /* 如果想要写多个属性，利用逗号进行分割 如果想要多个属性变化直接写all*/
+        /* } */
+        /* div:hover {
+            width: 400px;
+            height: 200px;
+            background-color: aqua;
+        }  */
+        
+        .bar {
+            width: 200px;
+            height: 15px;
+            border: 1px solid red;
+            padding: 1px;
+            border-radius: 7px;
+        }
+        
+        .bar-in {
+            width: 50%;
+            height: 100%;
+            background-color: red;
+            border-radius: 7px;
+            transition: width 0.5s;
+        }
+        
+        .bar:hover .bar-in {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bar">
+        <div class="bar-in"></div>
+    </div>
+</body>
+
+</html>
